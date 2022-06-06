@@ -1,0 +1,16 @@
+---
+title: "References"
+output: bookdown::html_document2
+bibliography: "references.bib"
+---
+
+```{css, echo =FALSE}
+h1.title {
+  font-size: 38px;
+  color: mediumslateblue;
+  text-align: default;
+}
+```
+
+
+<div id="refs"></div>

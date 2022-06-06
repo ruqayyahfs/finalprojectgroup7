@@ -1,0 +1,16 @@
+---
+title: "Research Questions"
+output: bookdown::html_document2
+---
+
+```{css, echo =FALSE}
+h1.title {
+  font-size: 38px;
+  color: mediumslateblue;
+  text-align: default;
+}
+```
+
+1. What are the strongest predictors of IMDb score; that is, are there variables that strongly predict if a movie will be well received by audiences? 
+
+2. How can we group movies together that contain similar attributes so that we can recommend similar movies to others?

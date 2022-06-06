@@ -1,0 +1,71 @@
+---
+title: "Methods and Results"
+output: bookdown::html_document2
+bibliography: "references.bib"
+---
+
+```{css, echo =FALSE}
+h1.title {
+  font-size: 38px;
+  color: mediumslateblue;
+  text-align: default;
+}
+```
+
+## <span style="color: mediumslateblue;">Multiple Regression</span>
+
+To answer our first research question, we implemented a multiple regression linear model to determine if any of the variables in our data set are viable predictors of `score`. We fitted an initial model (named model1) that regressed score on all of the variables depicted in figure \@ref(fig:dataTable) , except for the variable `budget_cat`, which was only created for data exploration purposes. After running the model and analyzing the t-test results via the `summary()` function, we found that while some levels of the variable categorical `genre` are deemed significant predictors of `score` (e.g. `drama`, `animation`), the majority have very high p-values and are not deemed significant predictors (e.g. `thriller`, `mystery`). `Month` is not a significant predictor, nor `gross`, nor `return_prop`.
+
+We then performed a residual analysis on model1. See figure \@ref(fig:residualsPlots) (LEFT). From the Residuals vs. Fitted plot, the residuals are not linear and exhibit heteroskedasticity. The QQ plot suggests that the residuals are not normally distributed, as the lower and higher standardized residuals do not line up with the theoretical quantiles. We also see some outliers, as well as one particularly high leverage point (i.e. observation 2817 (The 2007 movie "Paranormal Activity")).
+
+Next, using a step-wise model selection procedure with $R^2_{adj}$ as a selection criterion, we selected a model that produced the maximum value for $R^2_{adj}$. We chose to use $R^2_{adj}$ as a criterion, rather than $R^2$ because $R^2_{adj}$ is more appropriate for comparing models with different numbers of predictors. $R^2_{adj}$ will only increase for more predictors, if those predictors allow the model to explain more of the variance in the data. This method will implement partial F-tests and then eliminate one-by-one the least significant predictor. In this case, per both backward and forward elimination, the suggested model is `score` ~ `ratingR` + `runtime` + `genreAnimation` + `genreBiography` + `genreDrama` + `genreHorror` + `votes` + `budget`. 
+
+Since only 1 of 8 levels for `rating` is deemed significant, and only 4 of 15 levels for `genre` is deemed significant, we dropped these predictors along with `return_prop`, `gross`, `year` and `month` from the model, thus creating model2. For model2, we found that all the included predictors were significant; however, the residuals exhibited the same issues as those from model1. Since the residuals were nonlinear and heteroskedastic, model2 was a good candidate for a BoxCox transformation. We created and examined a BoxCox plot which had its maximum value near $\lambda = 2$, suggesting we raise $\hat{score}$ to the 2nd power. We fit the new model (model3) as such:
+
+
+$$\hat{\text{score}} = \sqrt{\hat\beta_0 + \hat\beta_{\text{runtime}} \cdot \text{runtime} + \hat\beta_{\text{votes}} \cdot \text{votes} + \hat\beta_{\text{budget}} \cdot \text{budget}}$$
+
+With model3, our residual plots began to improve and our $R^2_{adj}$ increased. Yet, we had some high leverage points. We removed them from the model, fit a new model, repeated our analysis, found new high leverage points, and removed those as well. At this point, we decided it would be inappropriate to continue to truncate the data. Another BoxCox transformation was implemented and the final model was reached:
+
+$$\hat{\text{score}} = \sqrt[4]{\hat\beta_0 + \hat\beta_{\text{runtime}} \cdot \text{runtime} + \hat\beta_{\text{votes}} \cdot \text{votes} + \hat\beta_{\text{budget}} \cdot \text{budget}}$$
+
+The final model achieves $R^2_{adj} = 0.4844$, which means that if this model is appropriate, the model above explains $48.44\%$ of the variance of `score`. The residual plots of the final model are not perfect but show significant improvement from the initial model. From Figure \@ref(fig:residualsPlots) (RIGHT): linearity was improved, not quite linear but *much* closer. Homoskedasticity appears more likely. Residual quantiles are quite close to theoretical quantiles, and could pass for normality. We conducted formal tests with the following results: Shapiro-Wilk test concluded that our residuals were not normally distributed; Box-Pierce test indicated the residuals were independently distributed; and Breusch-Pagan test concluded the residuals are not quite homoskedastic.
+
+```{r residuals1, eval = FALSE, fig.cap='Residual Plots for Initial Model', echo=FALSE,warning=FALSE,out.width='60%',out.height='70%'}
+# LEGACY
+knitr::include_graphics("plots/residuals1.png")
+```
+
+```{r residualsFinal, eval = FALSE, fig.cap='Residual Plots for Final Model', echo=FALSE,warning=FALSE,out.width='60%',out.height='70%'}
+# LEGACY
+knitr::include_graphics("plots/residualsFinal.png")
+```
+
+```{r residualsPlots, fig.cap='Full model residuals plots (left) and final model residuals plots (right)', fig.show = 'hold', fig.align = 'center', echo=FALSE,warning=FALSE,out.width='49%',out.height='65%'}
+knitr::include_graphics(c("plots/residuals1.png", "plots/residualsFinal.png"))
+```
+
+## <span style="color: mediumslateblue;">Cluster Analysis</span>
+
+
+To answer our second research question, we implemented hierarchical clustering methods to group movies together that contain similar attributes so that we can recommend similar movies. This data set contains a large number of categorical variables `rating`, `genre`, and `month` that might be relevant to the aggregation of movies that are alike. As these values are categorical values, a Euclidean distance is not suitable for evaluating the degree of similarity between observations. As a result, we relied on a different distance measure to achieve this classification, known as Gower distance. 
+
+The `daisy()` function with parameter `metric = "gower"` computes the Gower's distance (as a dissimilarity object) between units in a data set or between observations in two distinct data sets. It is useful in cases where records contain combinations of logical, numerical, categorical or text data. [@cluster]
+
+We removed variables as an exploration to give us a clustering we believed would be intuitive to compare to the full model. The Full Hierarchical Clustering in figure \@ref(fig:dendPlots) (RIGHT) is the full model with all the variable and the Reduced Variable clustering in figure \@ref(fig:dendPlots) (LEFT) only has the variables `rating`, `genre`, `year`, `score`, and `budget`. The Reduced Variable Hierarchical Clustering ended up with 6 clades, while the Full Clustering had 3. 
+
+```{r dendPlots, fig.cap='Colored dendrogram plots of full and reduced variable hierarchial clustering', fig.show = 'hold', fig.align = 'center', echo=FALSE,warning=FALSE,out.width='49%',out.height='65%'}
+knitr::include_graphics(c("plots/dend1.png", "plots/dend2.png"))
+```
+The most interesting finding was the difference between the red clusterings of both dendrogram plots. Cutting and returning the list of movies in the first clusters of both dendrogrmas allows us to view the titles of the movies in those clusters. By doing this we are able to visually see the groupings by movie name and inference how they may be clustered differently based on which variables are included in the model. To further explore where this differece may be coming from, we created a function that returned a table with the means and proportions of each variable in each cluster of the Full Hierarchial Clustering model and the Reduced Variables Hierarchical Clustering model.
+
+The variables that both clusters share (`rating`, `genre`, `year`, `score`, and `budget`) had the same average overall means and proportions, which indicates that the data isn't being changed based on how it is clustered. 
+In comparing the first cluster from each table, we see that the mean for `rating` and `genre` are the same, although the proportions are different. The Reduced Variable clustering from Figure \@ref(fig:reducedhclustMeans) has a 0.99 proportion for `rating`, which means 99% of the movies in that clustering share the same rating of R. Clusters 2 through 6 in the Reduced Variable clustering also have relatively high proportions for `rating`. The `genre` variable has proportions slightly varied, where some clusters have a lower proportion like 0.32 and other clusters have a proportion of 1, which means all the movies in that cluster have the same genre. The `year` and `scores` are slightly different, however the biggest difference was in the variable `budget`, which was much higher for the Reduced Variable clustering. 
+Looking at the Full clustering table from Figure \ref(fig:reducedhclustMeans), we see that the mean of `year`, `votes`, and `budget` increase between cluster 1 to cluster 3, whereas in the Reduced Variable clustering table, we do not see this same pattern in those variables between clusters 1 to 6.
+
+```{r fullhclustMeans, fig.cap='Mean and Proportions of Full Hierarchial Clustering', fig.show = 'hold', fig.align = 'center', echo=FALSE,warning=FALSE,out.width='89%',out.height='65%'}
+knitr::include_graphics("plots/full_hclust_means.png")
+```
+```{r reducedhclustMeans, fig.cap='Mean and Proportions of Reduced Hierarchial Clustering', fig.show = 'hold', fig.align = 'center', echo=FALSE,warning=FALSE,out.width='49%',out.height='65%'}
+knitr::include_graphics("plots/reduced_hclust_means.png")
+``` 

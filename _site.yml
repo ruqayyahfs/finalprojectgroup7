@@ -1,0 +1,25 @@
+name: "my-website"
+navbar:
+  title: "Final Project"
+  left:
+    - text: "Main"
+      href: index.html
+    - text: "Introduction"
+      href: about.html
+    - text: "Data Description"
+      href: datadescription.html
+    - text: "Research Questions"
+      href: researchquestions.html
+    - text: "Data Visualization"
+      href: datavisualization.html
+    - text: "Methods & Results"
+      href: methodsresults.html
+    - text: "Discussion & Conclusion"
+      href: conclusion.html
+    - text: "References"
+      href: references.html
+    - text: "Code Appendix"
+      href: codeappendix.html
+      
+      
+      
