@@ -25,7 +25,9 @@ h4.date {
 }
 ```
 
-
+ 
+ 
+ <center> **Group 7** \center
 ```{r groupContributionsEmails, fig.align = 'center', echo=FALSE,warning=FALSE,out.width='70%',out.height='50%'}
 knitr::include_graphics("plots/groupmembers.png")
 ```
