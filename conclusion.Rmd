@@ -1,7 +1,6 @@
 ---
 title: "Discussion and Conclusion"
 output: bookdown::html_document2
-bibliography: "references.bib"
 ---
 
 ```{css, echo =FALSE}
