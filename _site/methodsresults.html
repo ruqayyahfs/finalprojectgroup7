@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Methods and Results</title>
+
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Final Project</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Main</a>
+</li>
+<li>
+  <a href="about.html">Introduction</a>
+</li>
+<li>
+  <a href="datadescription.html">Data Description</a>
+</li>
+<li>
+  <a href="researchquestions.html">Research Questions</a>
+</li>
+<li>
+  <a href="datavisualization.html">Data Visualization</a>
+</li>
+<li>
+  <a href="methodsresults.html">Methods &amp; Results</a>
+</li>
+<li>
+  <a href="conclusion.html">Discussion &amp; Conclusion</a>
+</li>
+<li>
+  <a href="references.html">References</a>
+</li>
+<li>
+  <a href="codeappendix.html">Code Appendix</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Methods and Results</h1>
+
+</div>
+
+
+<style type="text/css">
+h1.title {
+  font-size: 38px;
+  color: mediumslateblue;
+  text-align: default;
+}
+</style>
+<p>To answer our first research question, we implemented a multiple regression linear model to determine if any of the variables in our data set are viable predictors of <code>score</code>. We fitted an initial model (named model1) that regressed score on all of the variables depicted in figure 1 from “Data Description”, except for the variable <code>budget_cat</code>, which was only created for data exploration purposes. After running the model and analyzing the t-test results via the <code>summary()</code> function, we found that while some levels of the variable categorical <code>genre</code> are deemed significant predictors of <code>score</code> (e.g. <code>drama</code>, <code>animation</code>), the majority have very high p-values and are not deemed significant predictors (e.g. <code>thriller</code>, <code>mystery</code>). <code>Month</code> is not a significant predictor, nor <code>gross</code>, nor <code>return_prop</code>.</p>
+<p>We then performed a residual analysis on model1. See figure <a href="#fig:residualsPlots">1</a> (LEFT). From the Residuals vs. Fitted plot, the residuals are not linear and exhibit heteroskedasticity. The QQ plot suggests that the residuals are not normally distributed, as the lower and higher standardized residuals do not line up with the theoretical quantiles. We also see some outliers, as well as one particularly high leverage point (i.e. observation 2817 (The 2007 movie “Paranormal Activity”)).</p>
+<p>Next, using a step-wise model selection procedure with <span class="math inline">\(R^2_{adj}\)</span> as a selection criterion, we selected a model that produced the maximum value for <span class="math inline">\(R^2_{adj}\)</span>. We chose to use <span class="math inline">\(R^2_{adj}\)</span> as a criterion, rather than <span class="math inline">\(R^2\)</span> because <span class="math inline">\(R^2_{adj}\)</span> is more appropriate for comparing models with different numbers of predictors. <span class="math inline">\(R^2_{adj}\)</span> will only increase for more predictors, if those predictors allow the model to explain more of the variance in the data. This method will implement partial F-tests and then eliminate one-by-one the least significant predictor. In this case, per both backward and forward elimination, the suggested model is <code>score</code> ~ <code>ratingR</code> + <code>runtime</code> + <code>genreAnimation</code> + <code>genreBiography</code> + <code>genreDrama</code> + <code>genreHorror</code> + <code>votes</code> + <code>budget</code>.</p>
+<p>Since only 1 of 8 levels for <code>rating</code> is deemed significant, and only 4 of 15 levels for <code>genre</code> is deemed significant, we dropped these predictors along with <code>return_prop</code>, <code>gross</code>, <code>year</code> and <code>month</code> from the model, thus creating model2. For model2, we found that all the included predictors were significant; however, the residuals exhibited the same issues as those from model1. Since the residuals were nonlinear and heteroskedastic, model2 was a good candidate for a BoxCox transformation. We created and examined a BoxCox plot which had its maximum value near <span class="math inline">\(\lambda = 2\)</span>, suggesting we raise <span class="math inline">\(\hat{score}\)</span> to the 2nd power. We fit the new model (model3) as such:</p>
+<p><span class="math display">\[\hat{\text{score}} = \sqrt{\hat\beta_0 + \hat\beta_{\text{runtime}} \cdot \text{runtime} + \hat\beta_{\text{votes}} \cdot \text{votes} + \hat\beta_{\text{budget}} \cdot \text{budget}}\]</span></p>
+<p>With model3, our residual plots began to improve and our <span class="math inline">\(R^2_{adj}\)</span> increased. Yet, we had some high leverage points. We removed them from the model, fit a new model, repeated our analysis, found new high leverage points, and removed those as well. At this point, we decided it would be inappropriate to continue to truncate the data. Another BoxCox transformation was implemented and the final model was reached:</p>
+<p><span class="math display">\[\hat{\text{score}} = \sqrt[4]{\hat\beta_0 + \hat\beta_{\text{runtime}} \cdot \text{runtime} + \hat\beta_{\text{votes}} \cdot \text{votes} + \hat\beta_{\text{budget}} \cdot \text{budget}}\]</span></p>
+<p>The final model achieves <span class="math inline">\(R^2_{adj} = 0.4844\)</span>, which means that if this model is appropriate, the model above explains <span class="math inline">\(48.44\%\)</span> of the variance of <code>score</code>. The residual plots of the final model are not perfect but show significant improvement from the initial model. From Figure <a href="#fig:residualsPlots">1</a> (RIGHT): linearity was improved, not quite linear but <em>much</em> closer. Homoskedasticity appears more likely. Residual quantiles are quite close to theoretical quantiles, and could pass for normality. We conducted formal tests with the following results: Shapiro-Wilk test concluded that our residuals were not normally distributed; Box-Pierce test indicated the residuals were independently distributed; and Breusch-Pagan test concluded the residuals are not quite homoskedastic.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:residualsPlots"></span>
+<img src="plots/residuals1.png" alt="Full model residuals plots (left) and final model residuals plots (right)" width="49%" height="65%" /><img src="plots/residualsFinal.png" alt="Full model residuals plots (left) and final model residuals plots (right)" width="49%" height="65%" />
+<p class="caption">
+Figure 1: Full model residuals plots (left) and final model residuals plots (right)
+</p>
+</div>
+<div id="ca" class="section level2" number="0.1">
+<h2><span class="header-section-number">0.1</span> <span style="color: mediumslateblue;">Cluster Analysis</span></h2>
+<p>To investigate our second research question, we implemented hierarchical clustering methods to group movies together that contain similar attributes so that we can recommend similar movies. This data set contains a large number of categorical variables <code>rating</code>, <code>genre</code>, and <code>month</code> that might be relevant to the aggregation of movies that are alike. As these values are categorical values, a Euclidean distance is not suitable for evaluating the degree of similarity between observations. As a result, we relied on a different distance measure to achieve this classification, known as Gower distance.</p>
+<p>The <code>daisy()</code> function with parameter <code>metric = "gower"</code> from the package <code>cluster</code> computes the Gower’s distance (as a dissimilarity object) between units in a data set or between observations in two distinct data sets. It is useful in cases where records contain combinations of logical, numerical, categorical or text data. (D’Orazio 2021) We used this method to create hierarchical clusters, and plot dendrogram of the results (Figure <a href="#fig:dendPlots">2</a>).</p>
+<p>The Full Hierarchical Clustering in figure <a href="#fig:dendPlots">2</a> (RIGHT) is the full clustering with all the variables (except <code>budget_cat</code> since we used <code>budget</code> and did not want to essentially reference the same variable twice). An additional cluster model was created by removing some of the variables that likely would not have as significant an impact on how the consumer perceived a film. This emphasized some of the qualitative aspects. The result of this Reduced Variable Clustering in figure <a href="#fig:dendPlots">2</a> (LEFT) only has the variables <code>rating</code>, <code>genre</code>, <code>year</code>, <code>score</code>, and <code>budget</code>. The Reduced Variable Hierarchical Clustering ended up with 6 relatively clearly defined categories (dark blue line visualizes cut of dendrogram), while the Full Clustering had 3 primary clusters.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:dendPlots"></span>
+<img src="plots/dend1.png" alt="Colored dendrogram plots of full and reduced variable hierarchial clustering" width="49%" height="65%" /><img src="plots/dend2.png" alt="Colored dendrogram plots of full and reduced variable hierarchial clustering" width="49%" height="65%" />
+<p class="caption">
+Figure 2: Colored dendrogram plots of full and reduced variable hierarchial clustering
+</p>
+</div>
+<p>Cutting and returning the list of movies in the each of the clusters of both dendrograms allows us to view the titles of the movies in those clusters. By doing this we are able to visually see the groupings by movie name and infer how they may be clustered differently based on which variables are included in the model. To further explore where these difference may be coming from, we created a function that returned a data frame (displayed as a table with <code>knitr</code>) with the means of numeric variables and the most frequent value and proportion of that value of categorical variables in each cluster of the Full Hierarchical Clustering model and the Reduced Variables Hierarchical Clustering models. The function also returns the total number of values in each of the clusters.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fullhclustMeans"></span>
+<img src="plots/full_hclust_means2.png" alt="Mean and Proportions of Full Hierarchial Clustering" width="90%" height="65%" />
+<p class="caption">
+Figure 3: Mean and Proportions of Full Hierarchial Clustering
+</p>
+</div>
+<p><br></br></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:reducedhclustMeans"></span>
+<img src="plots/reduced_hclust_means2.png" alt="Mean and Proportions of Reduced Hierarchial Clustering" width="90%" height="65%" />
+<p class="caption">
+Figure 4: Mean and Proportions of Reduced Hierarchial Clustering
+</p>
+</div>
+<p>Including the number of values allows us to associate cluster numbers to the plots above.</p>
+<p>The most interesting finding within the full cluster analysis is the significant difference between the red clustering on the Full Clustering plot and the other two clusters on that same plot. This small cluster of 74 observations (labelled Cluster 3 in Figure <a href="#fig:fullhclustMeans">3</a>). These represent newer, higher budget, action films, commonly rated PG-13. Investigating which movies belong to this cluster, we find “Avatar”, “Avengers: Age of Ultron”, some of the Star Wars films, etc. Clearly this cluster is a really dense group of very similar, high budget, high grossing, more highly rated films. These are a very specific aggregation of “action blockbuster” films.</p>
+<p>The second cluster analysis on reduced variables resulted in six clusters of far more meaningful differences on a consumer level. In a similar way to the “action blockbuster” films described in the previous paragraph, many of the clusters aggregated in a way that can be defined as a phrase to a prospective consumer. Cluster 5 in Figure <a href="#fig:reducedhclustMeans">4</a> (light blue in the Reduced Variable Dendrogram) for instance contains almost entirely animated films for children which included Disney movies such as “The Lion King” and “Mulan.”</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
