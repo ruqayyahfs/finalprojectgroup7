@@ -11,6 +11,8 @@ h1.title {
   text-align: default;
 }
 ```
+| D’Orazio, Marcello. 2021. “Distances with Mixed Type Variables Some Modified Gower’s Coefficients.” arXiv.
+|   https://doi.org/10.48550/ARXIV.2101.02481.
 
-
-<div id="refs"></div>
+| GRIJALVA, DANIEL. 2022. “Movie Industry.” Kaggle. 
+|   https://www.kaggle.com/datasets/danielgrijalvas/movies.
