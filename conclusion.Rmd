@@ -12,8 +12,6 @@ h1.title {
 ```
 
 
-# <span style="color: mediumslateblue;">Discussion and Conclusion</span> {#dc}
-
 **Multiple Regression:**
 One of the main issues we encountered with every multiple regression model were the high-leverage points. Upon closer inspection of the films that constituted the high-leverage points, we gained some insight into the predictive capabilities of the data set. The movies in the data set with high leverage included: Pulp Fiction, The Dark Knight, The Shawshank Redemption, The Matrix, Forrest Gump, and Inception. Even those who are not avid movie enthusiasts should recognize some of (if not all) the iconic films within this list. 
 
