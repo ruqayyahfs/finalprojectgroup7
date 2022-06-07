@@ -1,7 +1,6 @@
 ---
 title: "Data Description"
 output: bookdown::html_document2
-bibliography: "references.bib"
 ---
 ```{css, echo =FALSE}
 h1.title {
