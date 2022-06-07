@@ -3,8 +3,6 @@ title: "Code Appendix"
 output: bookdown::html_document2
 ---
 
-# (APPENDIX) Code Appendix {-}
-
 ## Libraries
 
 ```{r,eval=FALSE}
